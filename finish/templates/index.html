@@ -1,0 +1,542 @@
+{% load template_custom %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DDINGDONG - SHOP</title>
+    <link rel="icon" href='{% static "img/Fevicon.png" %}' type="image/png" />
+    <link
+      rel="stylesheet"
+      href='{% static "vendors/bootstrap/bootstrap.min.css" %}'
+    />
+    <link
+      rel="stylesheet"
+      href='{% static "vendors/fontawesome/css/all.min.css" %}'
+    />
+    <link
+      rel="stylesheet"
+      href='{% static "vendors/themify-icons/themify-icons.css" %}'
+    />
+    <link
+      rel="stylesheet"
+      href='{% static "vendors/nice-select/nice-select.css" %}'
+    />
+    <link
+      rel="stylesheet"
+      href='{% static "vendors/owl-carousel/owl.theme.default.min.css" %}'
+    />
+    <link
+      rel="stylesheet"
+      href='{% static "vendors/owl-carousel/owl.carousel.min.css" %}'
+    />
+
+    <link rel="stylesheet" href='{% static "css/style.css" %}' />
+
+    <link rel="manifest" href="finish/templates/manifest.json" />
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+    <!-- CODELAB: Add iOS meta tags and icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="DDINGDONG" />
+    <link rel="apple-touch-icon" href="static/img/icons/icon-144x144.png" />
+
+    <!-- CODELAB: Add description here -->
+    <meta name="description" content="통합 중고 제품 검색" />
+
+    <!-- CODELAB: Add meta theme-color -->
+    <meta name="theme-color" content="#0E6EEB" />
+
+    <!-- CODELAB: Add the install script here -->
+    <script src="finish/templates/install.js"></script>
+  </head>
+  <body>
+    <!--================ Start Header Menu Area =================-->
+    <header class="header_area">
+      <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="container">
+            <a class="navbar-brand logo_h" href="/finish">
+              <img src='{% static "img/logo.png" %}' alt=""/></a>
+            <button
+              class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse offset"
+              id="navbarSupportedContent"
+            >
+              <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/finish">Home</a>
+                </li>
+                <li class="nav-item submenu dropdown">
+                  <a
+                    href="index"
+                    class="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    >Shop</a
+                  >
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a class="nav-link" href="https://www.daangn.com/">당근마켓</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="https://www.hellomarket.com/">헬로마켓</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="https://www.withsellit.com/">셀잇</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="mypage.html">MyPage</a>
+                </li>
+              </ul>
+
+              <ul class="nav-shop">
+                <li class="nav-item">
+                  <a class="button button-header" href="login">Login</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!--================ End Header Menu Area =================-->
+
+    <!-- ================ start banner area ================= -->
+    <section class="blog-banner-area" id="category">
+      <div class="container h-100">
+        <div class="blog-banner">
+          <div class="text-center">
+            <h1>Shop Category</h1>
+            <nav aria-label="breadcrumb" class="banner-breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Shop Category
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ================ end banner area ================= -->
+
+    <!-- ================ category section start ================= -->
+    <section class="section-margin--small mb-5">
+      <div class="container">
+        <div class="row">
+          
+          <div class="col-xl-9 col-lg-8 col-md-7">
+            <!-- Start Filter Bar -->
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+              <div>
+                <div class="input-group filter-bar-search">
+                  <form action="{% url 'finish:search' %}" method="post">
+                    {% csrf_token %}
+                    <input class="input" name="search" id="inputFocus" type="text" placeholder="Search" value="{{search}}" />
+                    <button type="submit"><i class="ti-search"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- End Filter Bar -->
+            <!-- Start Best Seller -->
+            <section class="lattest-product-area pb-40 category-list">
+              
+              <div class="row">
+                {% for i in "x"|rjust:"6" %}
+                {% dg_item dgimgurl dgdata dgtitle dgcost as danggn%}
+                <div class="col-md-6 col-lg-4">
+                  <div class="card text-center card-product">
+                    <a href="{{danggn.1}}">{{danggn.2}}
+                      <div>
+                        <img src="{{danggn.0}}" alt="{{danggn.0}}" style="width: 100%; height: auto;">
+                      </div>
+                      <div class="card-body">
+                        <h4 class="card-product__title"></h4>
+                        <p class="card-product__price">{{danggn.3}}</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                {%endfor %}
+              </div>
+              
+
+              
+          
+              <div class="row">
+                {% for i in "x"|rjust:"6" %}
+                {% h_item himgurl hdata htitle hcost as hello %}
+                <div class="col-md-6 col-lg-4">
+                  <div class="card text-center card-product">
+                    <a href="{{hello.1}}">{{hello.2}}
+                      <div>
+                        <img src="{{hello.0}}" alt="{{hello.0}}" style="width: 100%; height: auto;">
+                      </div>
+                      <div class="card-body">
+                        <h4 class="card-product__title"></h4>
+                        <p class="card-product__price">{{hello.3}}</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                {%endfor %}
+              </div>
+              
+
+              
+              <div class="row">
+                {% for i in "x"|rjust:"6" %}
+                {% s_item simgurl sdata stitle scost as sellit %}
+                <div class="col-md-6 col-lg-4">
+                  <div class="card text-center card-product">
+                    <a href="{{sellit.1}}">{{sellit.2}}
+                      <div>
+                        <img src="{{sellit.0}}" alt="{{sellit.0}}" style="width: 100%; height: auto;">
+                      </div>
+                      <div class="card-body">
+                        <h4 class="card-product__title"></h4>
+                        <p class="card-product__price">{{sellit.3}}</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                {%endfor %}
+              </div>
+              
+            </section>
+            <!-- End Best Seller -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ================ category section end ================= -->
+
+    <!--================ Start footer Area  =================-->
+    <footer>
+      <div class="footer-area">
+        <div class="container">
+          <div class="row section_gap">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="single-footer-widget tp_widgets">
+                <h4 class="footer_title large_title">Our Mission</h4>
+                <p>
+                  So seed seed green that winged cattle in. Gathering thing made
+                  fly you're no divided deep moved us lan Gathering thing us
+                  land years living.
+                </p>
+                <p>
+                  So seed seed green that winged cattle in. Gathering thing made
+                  fly you're no divided deep moved
+                </p>
+              </div>
+            </div>
+
+            <div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+              <div class="single-footer-widget tp_widgets">
+                <h4 class="footer_title">Contact Us</h4>
+                <div class="ml-40">
+                  <p class="sm-head">
+                    <span class="fa fa-location-arrow"></span>
+                    Head Office
+                  </p>
+                  <p>123, Main Street, Your City</p>
+
+                  <p class="sm-head">
+                    <span class="fa fa-phone"></span>
+                    Phone Number
+                  </p>
+                  <p>
+                    +123 456 7890 <br />
+                    +123 456 7890
+                  </p>
+
+                  <p class="sm-head">
+                    <span class="fa fa-envelope"></span>
+                    Email
+                  </p>
+                  <p>
+                    free@infoexample.com <br />
+                    www.infoexample.com
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+        <!-- Header section containing title -->
+        
+
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row d-flex">
+            <p class="col-lg-12 footer-text text-center">
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              All rights reserved | This template is made with
+              <i class="fa fa-heart" aria-hidden="true"></i> by
+              <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--================ End footer Area  =================-->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-analytics.js"></script>
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCklKvU6-CImK6MN-Nx2a3JFkj5mbsfdBM",
+      authDomain: "djangotest-bd732.firebaseapp.com",
+      databaseURL: "https://djangotest-bd732.firebaseio.com",
+      projectId: "djangotest-bd732",
+      storageBucket: "djangotest-bd732.appspot.com",
+      messagingSenderId: "649681228932",
+     appId: "1:649681228932:web:78945705caf7295337ded1",
+     measurementId: "G-DVRPPYEFX6"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    </script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="/__/firebase/6.2.0/firebase-auth.js"></script>
+    <script src="/__/firebase/6.2.0/firebase-firestore.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js"></script>
+<script>
+  firebase.initializeApp({
+    'messagingSenderId': '649681228932'
+  });
+</script>
+<script>
+  // [START get_messaging_object]
+  // Retrieve Firebase Messaging object.
+  const messaging = firebase.messaging();
+  // [END get_messaging_object]
+  // [START set_public_vapid_key]
+  // Add the public key generated from the console here.
+  // messaging.usePublicVapidKey('<YOUR_PUBLIC_VAPID_KEY_HERE>');
+  // [END set_public_vapid_key]
+
+  // IDs of divs that display Instance ID token UI or request permission UI.
+  const tokenDivId = 'token_div';
+  const permissionDivId = 'permission_div';
+
+  // [START refresh_token]
+  // Callback fired if Instance ID token is updated.
+  messaging.onTokenRefresh(function() {
+    messaging.getToken().then(function(refreshedToken) {
+      console.log('Token refreshed.');
+      // Indicate that the new Instance ID token has not yet been sent to the
+      // app server.
+      setTokenSentToServer(false);
+      // Send Instance ID token to app server.
+      sendTokenToServer(refreshedToken);
+      // [START_EXCLUDE]
+      // Display new Instance ID token and clear UI of all previous messages.
+      resetUI();
+      // [END_EXCLUDE]
+    }).catch(function(err) {
+      console.log('Unable to retrieve refreshed token ', err);
+      showToken('Unable to retrieve refreshed token ', err);
+    });
+  });
+  // [END refresh_token]
+
+  // [START receive_message]
+  // Handle incoming messages. Called when:
+  // - a message is received while the app has focus
+  // - the user clicks on an app notification created by a service worker
+  //   `messaging.setBackgroundMessageHandler` handler.
+  messaging.onMessage(function(payload) {
+    console.log('Message received. ', payload);
+    // [START_EXCLUDE]
+    // Update the UI to include the received message.
+    appendMessage(payload);
+    // [END_EXCLUDE]
+  });
+  // [END receive_message]
+
+  function resetUI() {
+    clearMessages();
+    showToken('loading...');
+    // [START get_token]
+    // Get Instance ID token. Initially this makes a network call, once retrieved
+    // subsequent calls to getToken will return from cache.
+    messaging.getToken().then(function(currentToken) {
+      if (currentToken) {
+        sendTokenToServer(currentToken);
+        updateUIForPushEnabled(currentToken);
+      } else {
+        // Show permission request.
+        console.log('No Instance ID token available. Request permission to generate one.');
+        // Show permission UI.
+        updateUIForPushPermissionRequired();
+        setTokenSentToServer(false);
+      }
+    }).catch(function(err) {
+      console.log('An error occurred while retrieving token. ', err);
+      showToken('Error retrieving Instance ID token. ', err);
+      setTokenSentToServer(false);
+    });
+    // [END get_token]
+  }
+
+
+  function showToken(currentToken) {
+    // Show token in console and UI.
+    var tokenElement = document.querySelector('#token');
+    tokenElement.textContent = currentToken;
+  }
+
+  // Send the Instance ID token your application server, so that it can:
+  // - send messages back to this app
+  // - subscribe/unsubscribe the token from topics
+  function sendTokenToServer(currentToken) {
+    if (!isTokenSentToServer()) {
+      console.log('Sending token to server...');
+      // TODO(developer): Send the current token to your server.
+      setTokenSentToServer(true);
+    } else {
+      console.log('Token already sent to server so won\'t send it again ' +
+          'unless it changes');
+    }
+
+  }
+
+  function isTokenSentToServer() {
+    return window.localStorage.getItem('sentToServer') === '1';
+  }
+
+  function setTokenSentToServer(sent) {
+    window.localStorage.setItem('sentToServer', sent ? '1' : '0');
+  }
+
+  function showHideDiv(divId, show) {
+    const div = document.querySelector('#' + divId);
+    if (show) {
+      div.style = 'display: visible';
+    } else {
+      div.style = 'display: none';
+    }
+  }
+
+  function requestPermission() {
+    console.log('Requesting permission...');
+    // [START request_permission]
+    messaging.requestPermission().then(function() {
+      console.log('Notification permission granted.');
+      // TODO(developer): Retrieve an Instance ID token for use with FCM.
+      // [START_EXCLUDE]
+      // In many cases once an app has been granted notification permission, it
+      // should update its UI reflecting this.
+      resetUI();
+      // [END_EXCLUDE]
+    }).catch(function(err) {
+      console.log('Unable to get permission to notify.', err);
+    });
+    // [END request_permission]
+  }
+
+  function deleteToken() {
+    // Delete Instance ID token.
+    // [START delete_token]
+    messaging.getToken().then(function(currentToken) {
+      messaging.deleteToken(currentToken).then(function() {
+        console.log('Token deleted.');
+        setTokenSentToServer(false);
+        // [START_EXCLUDE]
+        // Once token is deleted update UI.
+        resetUI();
+        // [END_EXCLUDE]
+      }).catch(function(err) {
+        console.log('Unable to delete token. ', err);
+      });
+      // [END delete_token]
+    }).catch(function(err) {
+      console.log('Error retrieving Instance ID token. ', err);
+      showToken('Error retrieving Instance ID token. ', err);
+    });
+
+  }
+
+  // Add a message to the messages element.
+  function appendMessage(payload) {
+    const messagesElement = document.querySelector('#messages');
+    const dataHeaderELement = document.createElement('h5');
+    const dataElement = document.createElement('pre');
+    dataElement.style = 'overflow-x:hidden;';
+    dataHeaderELement.textContent = 'Received message:';
+    dataElement.textContent = JSON.stringify(payload, null, 2);
+    messagesElement.appendChild(dataHeaderELement);
+    messagesElement.appendChild(dataElement);
+  }
+
+  // Clear the messages element of all children.
+  function clearMessages() {
+    const messagesElement = document.querySelector('#messages');
+    while (messagesElement.hasChildNodes()) {
+      messagesElement.removeChild(messagesElement.lastChild);
+    }
+  }
+
+  function updateUIForPushEnabled(currentToken) {
+    showHideDiv(tokenDivId, true);
+    showHideDiv(permissionDivId, false);
+    showToken(currentToken);
+  }
+
+  function updateUIForPushPermissionRequired() {
+    showHideDiv(tokenDivId, false);
+    showHideDiv(permissionDivId, true);
+  }
+
+  resetUI();
+</script>
+
+    <script src='{% static "vendors/jquery/jquery-3.2.1.min.js" %}'></script>
+    <script src='{% static "vendors/bootstrap/bootstrap.bundle.min.js" %}'></script>
+    <script src='{% static "vendors/skrollr.min.js" %}'></script>
+    <script src='{% static "vendors/owl-carousel/owl.carousel.min.js" %}'></script>
+    <script src='{% static "vendors/nice-select/jquery.nice-select.min.js" %}'></script>
+    <script src='{% static "vendors/jquery.ajaxchimp.min.js" %}'></script>
+    <script src='{% static "vendors/mail-script.js" %}'></script>
+    <script src='{% static "js/main.js" %}'></script>
+  </body>
+</html>

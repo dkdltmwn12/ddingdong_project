@@ -1,0 +1,31 @@
+{% load template_custom %}
+
+<form action="{% url 'finish:search' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="search" />
+    <input type="submit" value="ok" /><br />
+
+
+    {% for i in "x"|rjust:"6" %}
+    {% dg_item dgimgurl dgdata dgtitle dgcost as danggn%}
+    <img src=" {{danggn.0}}">
+    <a href="{{danggn.1}}">{{danggn.2}}</a><br />
+    <h3>{{danggn.3}}</h3>
+    {%endfor %}
+
+    {% for i in "x"|rjust:"6" %}
+    {% h_item himgurl hdata htitle hcost as hello %}
+    <img src=" {{hello.0}}">
+    <a href="{{hello.1}}">{{hello.2}}</a><br />
+    <h3>{{hello.3}}</h3>
+    {%endfor %}
+
+    {% for i in "x"|rjust:"6" %}
+    {% s_item simgurl sdata stitle scost as sellit %}
+    <img src=" {{sellit.0}}">
+    <a href="{{sellit.1}}">{{sellit.2}}</a><br />
+    <h3>{{sellit.3}}</h3>
+    {%endfor %}
+
+
+</form>
